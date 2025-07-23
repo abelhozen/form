@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hospital System Feedback</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #e8f4f8; 
+      padding: 20px; 
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    form { 
+      background: #fff; 
+      padding: 30px; 
+      border-radius: 10px; 
+      box-shadow: 0 0 25px rgba(0,0,0,0.1);
+    }
+    h2 { 
+      color: #005b96; 
+      text-align: center; 
+      margin-bottom: 30px;
+      border-bottom: 2px solid #005b96;
+      padding-bottom: 10px;
+    }
+    .section-title {
+      background: #005b96;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 25px 0 15px 0;
+    }
+    label { 
+      display: block; 
+      margin-top: 15px; 
+      font-weight: 600;
+      color: #333;
+    }
+    textarea, input, select { 
+      width: 100%; 
+      padding: 12px; 
+      margin-top: 8px; 
+      border-radius: 5px; 
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    input[type="submit"] { 
+      background: #005b96; 
+      color: white; 
+      border: none; 
+      cursor: pointer; 
+      margin-top: 25px; 
+      padding: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background 0.3s;
+      border-radius: 5px;
+      width: 100%;
+    }
+    input[type="submit"]:hover {
+      background: #003d66;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .required:after {
+      content: " *";
+      color: #e74c3c;
+    }
+    .role-specific {
+      display: none;
+    }
+    .hint {
+      font-size: 13px;
+      color: #666;
+      font-style: italic;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Hospital Management System Feedback Form</h2>
+  <form action="submit.php" method="POST">
+    <!-- Basic Information Section -->
+    <div class="section-title">1. Your Information</div>
+    
+    <div class="form-group">
+      <label class="required">Full Name:</label>
+      <input type="text" name="full_name" required>
+    </div>
+    
+    <div class="form-group">
+      <label class="required">Email:</label>
+      <input type="email" name="email" required>
+    </div>
+    
+    <div class="form-group">
+      <label class="required">Your Role in the Hospital:</label>
+      <select name="role" id="role-select" required onchange="showRoleSpecificQuestions()">
+        <option value="">--Select Role--</option>
+        <option value="Receptionist">Receptionist</option>
+        <option value="Nurse">Nurse</option>
+        <option value="Lab Technician">Lab Technician</option>
+        <option value="Pharmacist">Pharmacist</option>
+        <option value="Doctor">Doctor</option>
+        <option value="Administrator">Administrator</option>
+        <option value="IT Support">IT Support</option>
+        <option value="Other">Other Medical Staff</option>
+      </select>
+    </div>
+
+    <!-- User Experience Section -->
+    <div class="section-title">2. User Experience</div>
+    
+    <div class="form-group">
+      <label class="required">Overall Satisfaction:</label>
+      <select name="satisfaction" required>
+        <option value="">--Select--</option>
+        <option value="Very Satisfied">Very Satisfied</option>
+        <option value="Satisfied">Satisfied</option>
+        <option value="Neutral">Neutral</option>
+        <option value="Dissatisfied">Dissatisfied</option>
+        <option value="Very Dissatisfied">Very Dissatisfied</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label class="required">Ease of Use:</label>
+      <textarea name="ease_of_use" required placeholder="How easy or difficult is the system to use?"></textarea>
+      <p class="hint">Consider: Navigation, interface clarity, learning curve</p>
+    </div>
+    
+    <div class="form-group">
+      <label class="required">System Performance:</label>
+      <textarea name="performance" required placeholder="How does the system perform in terms of speed and reliability?"></textarea>
+      <p class="hint">Consider: Loading times, crashes, freezes</p>
+    </div>
+
+    <!-- System Coverage Section -->
+    <div class="section-title">3. System Coverage</div>
+    
+    <div class="form-group">
+      <label class="required">Modules You Use:</label>
+      <textarea name="modules_used" required placeholder="Which parts of the system do you regularly use?"></textarea>
+      <p class="hint">Example: Patient registration, appointment scheduling, billing, lab reports, etc.</p>
+    </div>
+    
+    <div class="form-group">
+      <label class="required">Working Well:</label>
+      <textarea name="working_well" required placeholder="Which features/modules work well for your role?"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Missing Features:</label>
+      <textarea name="missing_features" placeholder="What important features are missing for your role?"></textarea>
+    </div>
+
+    <!-- Challenges Section -->
+    <div class="section-title">4. Challenges in the System</div>
+    
+    <div class="form-group">
+      <label class="required">Technical Issues:</label>
+      <textarea name="technical_issues" required placeholder="What technical problems have you encountered?"></textarea>
+      <p class="hint">Example: Error messages, system crashes, slow performance</p>
+    </div>
+    
+    <div class="form-group">
+      <label class="required">Workflow Problems:</label>
+      <textarea name="workflow_problems" required placeholder="What workflow challenges does the system create?"></textarea>
+      <p class="hint">Example: Too many steps for simple tasks, confusing processes</p>
+    </div>
+    
+    <div class="form-group">
+      <label>Data Accuracy Issues:</label>
+      <textarea name="data_issues" placeholder="Have you encountered any data accuracy or synchronization problems?"></textarea>
+    </div>
+
+    <!-- Recommendations Section -->
+    <div class="section-title">5. Recommendations for Improvement</div>
+    
+    <div class="form-group">
+      <label class="required">Top Priority Improvements:</label>
+      <textarea name="priority_improvements" required placeholder="What changes would have the biggest positive impact on your work?"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Additional Features Needed:</label>
+      <textarea name="new_features" placeholder="What new features would you like to see added?"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Training Needs:</label>
+      <textarea name="training_needs" placeholder="What additional training would help you use the system better?"></textarea>
+    </div>
+
+    <!-- Role-Specific Questions -->
+    <div id="receptionist-questions" class="role-specific">
+      <div class="section-title">Receptionist-Specific Questions</div>
+      
+      <div class="form-group">
+        <label>Appointment Scheduling Experience:</label>
+        <textarea name="receptionist_appointments" placeholder="How well does the appointment scheduling system work?"></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label>Patient Registration Challenges:</label>
+        <textarea name="receptionist_registration" placeholder="What issues do you face with patient registration?"></textarea>
+      </div>
+    </div>
+
+    <div id="doctor-questions" class="role-specific">
+      <div class="section-title">Doctor-Specific Questions</div>
+      
+      <div class="form-group">
+        <label>Patient Records Access:</label>
+        <textarea name="doctor_records" placeholder="How easy is it to access and update patient records?"></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label>Prescription System:</label>
+        <textarea name="doctor_prescriptions" placeholder="How well does the prescription system work?"></textarea>
+      </div>
+    </div>
+
+    <div id="nurse-questions" class="role-specific">
+      <div class="section-title">Nurse-Specific Questions</div>
+      
+      <div class="form-group">
+        <label>Patient Monitoring Features:</label>
+        <textarea name="nurse_monitoring" placeholder="How effective are the patient monitoring features?"></textarea>
+      </div>
+    </div>
+
+    <div id="lab-questions" class="role-specific">
+      <div class="section-title">Lab Technician-Specific Questions</div>
+      
+      <div class="form-group">
+        <label>Test Result Management:</label>
+        <textarea name="lab_results" placeholder="How well does the test result management system work?"></textarea>
+      </div>
+    </div>
+
+    <input type="submit" value="Submit Feedback">
+  </form>
+</div>
+
+<script>
+function showRoleSpecificQuestions() {
+  // Hide all role-specific sections first
+  document.querySelectorAll('.role-specific').forEach(section => {
+    section.style.display = 'none';
+  });
+  
+  // Show the relevant section based on selected role
+  const role = document.getElementById('role-select').value;
+  if (role === 'Receptionist') {
+    document.getElementById('receptionist-questions').style.display = 'block';
+  } else if (role === 'Doctor') {
+    document.getElementById('doctor-questions').style.display = 'block';
+  } else if (role === 'Nurse') {
+    document.getElementById('nurse-questions').style.display = 'block';
+  } else if (role === 'Lab Technician') {
+    document.getElementById('lab-questions').style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>
